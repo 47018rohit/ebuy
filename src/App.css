@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+
+.navbar {
+    box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.47);
+}
+
+.navbar-brand {
+    position: absolute;
+    right: 0;
+    font-family: 'Monoton', cursive;
+}
+
+.container {
+    margin-top: 10%;
+    width: 100%;
+    height: 100%;
+}
+
+.homeDisplay {
+    height: 100vh;
+    background-image: url(./../homePage.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.category-link {
+    height: 100%;
+    background-image: linear-gradient(to right, black, rgba(0, 0, 0, 0));
+    display: block;
+    gap: 10px;
+}
+
+.alert-box{
+    z-index: 10;
+}
