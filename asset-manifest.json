@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/ebuy/static/css/main.ddb0316c.css",
+    "main.js": "/ebuy/static/js/main.eabfcc23.js",
+    "static/js/787.455541a9.chunk.js": "/ebuy/static/js/787.455541a9.chunk.js",
+    "static/media/homePage.jpg": "/ebuy/static/media/homePage.6342f24ae7e2c3e61b9a.jpg",
+    "index.html": "/ebuy/index.html",
+    "main.ddb0316c.css.map": "/ebuy/static/css/main.ddb0316c.css.map",
+    "main.eabfcc23.js.map": "/ebuy/static/js/main.eabfcc23.js.map",
+    "787.455541a9.chunk.js.map": "/ebuy/static/js/787.455541a9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ddb0316c.css",
+    "static/js/main.eabfcc23.js"
+  ]
+}
