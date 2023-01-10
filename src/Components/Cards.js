@@ -16,7 +16,7 @@ export default function Cards(props) {
                 <img src={image} className="card-img-top" alt="..." style={{}} />
                 <div className="card-body">
                     <h5 className="card-title">{title}</h5>
-                    <p className="card-text">${price}</p>
+                    <p className="card-text">₹{price}</p>
                     <button onClick={handleAddToCart} className="btn btn-dark">Add to Cart</button>
                 </div>
             </div>

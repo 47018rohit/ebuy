@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Cart(props) {
   const [quantity, setQuantity] = useState(1)
@@ -21,32 +22,43 @@ export default function Cart(props) {
           <div className="col py-2 bg-dark text-light">  </div>
         </div>
         <div className='col'>
-          {props.cartArray.map((element) => {
-            return <div className="row py-3" key={element.id}>
-              <div className="col">
-                <img src={element.image} className="card-img-top" alt="..." style={{ height: '5rem', width: '6rem' }} />
+          {props.cartArray.length === 0 ?
+            <>
+              <h2 className='pb-5' >Nothing in the Cart</h2>
+            </> : props.cartArray.map((element) => {
+              return <div className="row py-3" key={element.id}>
+                <div className="col">
+                  <img src={element.image} className="card-img-top" alt="..." style={{ height: '5rem', width: '6rem' }} />
+                </div>
+                <div className="col">{element.title}</div>
+                <div className="col">
+                  <select className="form-select text-center" onChange={handleQuantity} aria-label="select">
+                    <option value='1'>{element.quantity}</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+                <div className="col">₹{!element.id === element.id ? element.price : element.price * quantity}</div>
+                <div className="col">
+                  <button onClick={() => { handleDelete(element.id) }} className="btn btn-dark" >Delete</button>
+                </div>
               </div>
-              <div className="col">{element.title}</div>
-              <div className="col">
-                <select className="form-select text-center" onChange={handleQuantity} aria-label="select">
-                  <option value='1'>{element.quantity}</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-              </div>
-              <div className="col">${element.price * quantity}</div>
-              <div className="col">
-                <button onClick={() => { handleDelete(element.id) }} className="btn btn-dark" >Delete</button>
-              </div>
-            </div>
-          })}
+            })}
         </div>
         <div className="total-price bg-dark text-light my-2 sticky-bottom" style={{ width: '100%', height: '10%' }}>
           <div className="row py-2">
+            <div className="col fw-bolder fs-4">
+              <button className='btn btn-light text-dark'>
+                <Link className='shopNow' to='/shop'>Continue Shopping</Link>
+              </button>
+            </div>
             <div className="col fw-bolder fs-4">Grand Total</div>
-            <div className="col fw-bolder fs-4">${ }</div>
+            <div className="col fw-bolder fs-4">₹{ }</div>
+            <div className="col fw-bolder fs-4">
+              <button className="btn btn-light text-dark" disabled={props.cartArray.length === 0} >Proceed To Checkout</button>
+            </div>
           </div>
         </div>
       </div>

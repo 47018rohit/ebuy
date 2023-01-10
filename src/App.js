@@ -15,12 +15,12 @@ function App() {
 
   const addItems = (id, title, price, image) => {
     if (cartArray.find((e) => e.id === id)) {
-      showAlert("Already added same product, if you wish you can change the quantity in cart.","info")
+      showAlert("Already added same product, if you wish you can change the quantity in cart.", "info")
     }
 
     // adding item in cart
     else {
-      showAlert("Added to Cart","success")
+      showAlert("Added to Cart", "success")
       const tempArray = [{
         id: id,
         image: image,
@@ -47,7 +47,7 @@ function App() {
     const arrayAfterDelete = cartArray.filter((e) => e.id !== id)
     return setCartArray([...arrayAfterDelete])
   }
-  
+
   return (
     <BrowserRouter>
 
@@ -56,7 +56,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomeContent />}></Route>
           <Route path='/shop' element={<ShopZone addItems={addItems} showAlert={showAlert} />}></Route>
-          <Route path='/cart' element={<Cart cartArray={cartArray} deleteItem={deleteItem} />}></Route>
+          <Route path='/cart' element={<Cart cartArray={cartArray} price={cartArray.price} deleteItem={deleteItem} />}></Route>
         </Routes>
       </div>
       <Alert alert={alert} />
