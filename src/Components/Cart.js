@@ -2,13 +2,34 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Cart(props) {
-  const [quantity, setQuantity] = useState(1)
-  const handleDelete = (id) => {
-    props.deleteItem(id)
+  const [grandTotal, setGrandTotal] = useState()
+
+  const calculateTotal = () => {
+    let sum = 0
+    if (props.cartArray.length !== 0) {
+      props.cartArray.forEach((e) => {
+        return console.log(sum + e.netPrice)
+      })
+      setGrandTotal(    sum  )
+
+    } else {
+      setGrandTotal(0)
+    }
   }
 
-  const handleQuantity = (e) => {
-    setQuantity(e.target.value);
+  const handleDelete = (id) => {
+    props.deleteItem(id)
+    calculateTotal()
+  }
+
+  const decreaseQuantity = (item) => {
+    // console.log(item)
+    props.decreaseQuantity(item);
+    calculateTotal()
+  }
+  const increaseQuantity = (item) => {
+    props.increaseQuantity(item);
+    calculateTotal()
   }
 
   return (
@@ -25,22 +46,21 @@ export default function Cart(props) {
           {props.cartArray.length === 0 ?
             <>
               <h2 className='pb-5' >Nothing in the Cart</h2>
-            </> : props.cartArray.map((element) => {
+            </>
+            : props.cartArray.map((element) => {
               return <div className="row py-3" key={element.id}>
                 <div className="col">
                   <img src={element.image} className="card-img-top" alt="..." style={{ height: '5rem', width: '6rem' }} />
                 </div>
                 <div className="col">{element.title}</div>
-                <div className="col">
-                  <select className="form-select text-center" onChange={handleQuantity} aria-label="select">
-                    <option value='1'>{element.quantity}</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
+                <div className="col quantity">
+                  <button className="btn btn-outline-secondary" disabled={element.quantity <= 1} onClick={() => decreaseQuantity(element)}>-</button>
+
+                  <strong style={{ padding: '1rem', fontSize: '18px' }} > {element.quantity} </strong>
+
+                  <button className="btn btn-outline-secondary" onClick={() => increaseQuantity(element)}>+</button>
                 </div>
-                <div className="col">₹{!element.id === element.id ? element.price : element.price * quantity}</div>
+                <div className="col">₹{element.price}x{element.quantity}= {element.netPrice}</div>
                 <div className="col">
                   <button onClick={() => { handleDelete(element.id) }} className="btn btn-dark" >Delete</button>
                 </div>
@@ -55,7 +75,7 @@ export default function Cart(props) {
               </button>
             </div>
             <div className="col fw-bolder fs-4">Grand Total</div>
-            <div className="col fw-bolder fs-4">₹{ }</div>
+            <div className="col fw-bolder fs-4">₹{grandTotal}</div>
             <div className="col fw-bolder fs-4">
               <button className="btn btn-light text-dark" disabled={props.cartArray.length === 0} >Proceed To Checkout</button>
             </div>
