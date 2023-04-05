@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/ebuy/static/css/main.ddb0316c.css",
-    "main.js": "/ebuy/static/js/main.0b35b8be.js",
+    "main.js": "/ebuy/static/js/main.e371d0b0.js",
     "static/js/787.455541a9.chunk.js": "/ebuy/static/js/787.455541a9.chunk.js",
     "static/media/homePage.jpg": "/ebuy/static/media/homePage.6342f24ae7e2c3e61b9a.jpg",
     "index.html": "/ebuy/index.html",
     "main.ddb0316c.css.map": "/ebuy/static/css/main.ddb0316c.css.map",
-    "main.0b35b8be.js.map": "/ebuy/static/js/main.0b35b8be.js.map",
+    "main.e371d0b0.js.map": "/ebuy/static/js/main.e371d0b0.js.map",
     "787.455541a9.chunk.js.map": "/ebuy/static/js/787.455541a9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ddb0316c.css",
-    "static/js/main.0b35b8be.js"
+    "static/js/main.e371d0b0.js"
   ]
 }
