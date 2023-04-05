@@ -12,6 +12,8 @@ function App() {
 
   const [cartArray, setCartArray] = useState([])
   const [alert, setAlert] = useState(null)
+  const [grandTotal, setGrandTotal] = useState(0)
+  const [totalItems, setTotalItems] = useState(0)
 
   // Adding items to cart
   const addItems = (item) => {
@@ -20,10 +22,13 @@ function App() {
     if (existingItem) {
       setCartArray(
         cartArray.map(e =>
-          e.id === item.id ? { ...e, quantity: e.quantity + 1, netPrice:e.price*(e.quantity+1) } : e
+          e.id === item.id ? { ...e, quantity: e.quantity + 1, netPrice: e.price * (e.quantity + 1) } : e
         )
       )
-      showAlert('quantity increased', 'success')
+      showAlert('Added to Cart', 'success')
+      setGrandTotal(grandTotal + item.price)
+      setTotalItems(totalItems + 1)
+
     }
     else {
       const tempArray = [{
@@ -32,10 +37,13 @@ function App() {
         title: item.title,
         price: item.price,
         quantity: 1,
-        netPrice: item.price*1
+        netPrice: item.price * 1
       }]
       setCartArray([...tempArray, ...cartArray])
       showAlert("Added to Cart", "success")
+      setGrandTotal(grandTotal + item.price)
+      setTotalItems(totalItems + 1)
+
     }
   }
 
@@ -43,17 +51,21 @@ function App() {
   const increaseQuantity = (item) => {
     setCartArray(
       cartArray.map(e =>
-        e.id === item.id ? { ...e, quantity: e.quantity + 1, netPrice:e.price*(e.quantity+1) } : e
+        e.id === item.id ? { ...e, quantity: e.quantity + 1, netPrice: e.price * (e.quantity + 1) } : e
       )
     )
+    setGrandTotal(grandTotal + item.price)
+    setTotalItems(totalItems + 1)
   }
 
   const decreaseQuantity = (item) => {
     setCartArray(
       cartArray.map(e =>
-        e.id === item.id ? { ...e, quantity: e.quantity - 1,netPrice:e.price*(e.quantity-1) } : e
+        e.id === item.id ? { ...e, quantity: e.quantity - 1, netPrice: e.price * (e.quantity - 1) } : e
       )
     )
+    setGrandTotal(grandTotal - item.price)
+    setTotalItems(totalItems - 1)
   }
 
   // Alert Message
@@ -68,9 +80,12 @@ function App() {
   }
 
   // removing item from cart
-  const deleteItem = (id) => {
-    const arrayAfterDelete = cartArray.filter((e) => e.id !== id)
+  const deleteItem = (item) => {
+    const arrayAfterDelete = cartArray.filter((e) => e.id !== item.id)
+    setGrandTotal(grandTotal - item.netPrice)
+    setTotalItems(totalItems - item.quantity)
     return setCartArray([...arrayAfterDelete])
+
   }
 
   return (
@@ -80,13 +95,20 @@ function App() {
       <div  >
         <Routes>
           <Route path='/' element={<HomeContent />}></Route>
-          <Route path='/shop' element={<ShopZone addItems={addItems} showAlert={showAlert} />}></Route>
+          <Route path='/shop' element=
+            {<ShopZone
+              addItems={addItems}
+              showAlert={showAlert}
+              cartArray={cartArray}
+              totalItems={totalItems}
+            />}></Route>
           <Route path='/cart' element=
             {<Cart
               cartArray={cartArray}
               increaseQuantity={increaseQuantity}
               decreaseQuantity={decreaseQuantity}
-              deleteItem={deleteItem} />
+              deleteItem={deleteItem}
+              grandTotal={grandTotal} />
             }
           ></Route>
         </Routes>

@@ -1,41 +1,24 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Cart(props) {
-  const [grandTotal, setGrandTotal] = useState()
 
-  const calculateTotal = () => {
-    let sum = 0
-    if (props.cartArray.length !== 0) {
-      props.cartArray.forEach((e) => {
-        return console.log(sum + e.netPrice)
-      })
-      setGrandTotal(    sum  )
-
-    } else {
-      setGrandTotal(0)
-    }
-  }
-
-  const handleDelete = (id) => {
-    props.deleteItem(id)
-    calculateTotal()
+  const handleDelete = (item) => {
+    props.deleteItem(item)
   }
 
   const decreaseQuantity = (item) => {
     // console.log(item)
     props.decreaseQuantity(item);
-    calculateTotal()
   }
   const increaseQuantity = (item) => {
     props.increaseQuantity(item);
-    calculateTotal()
   }
 
   return (
     <>
-      <div className='container text-center'>
-        <div className="row py-5 rounded">
+      <div className='container py-5 text-center'>
+        <div className="row pb-5 rounded">
           <div className="col py-2 bg-dark text-light">   </div>
           <div className="col py-2 fw-bold bg-dark text-light">Product Name</div>
           <div className="col py-2 fw-bold bg-dark text-light">Quantity</div>
@@ -62,20 +45,22 @@ export default function Cart(props) {
                 </div>
                 <div className="col">₹{element.price}x{element.quantity}= {element.netPrice}</div>
                 <div className="col">
-                  <button onClick={() => { handleDelete(element.id) }} className="btn btn-dark" >Delete</button>
+                  <button onClick={() => { handleDelete(element) }} className="btn btn-dark" >Delete</button>
                 </div>
               </div>
             })}
         </div>
-        <div className="total-price bg-dark text-light my-2 sticky-bottom" style={{ width: '100%', height: '10%' }}>
+        <div className="row total-price bg-dark text-light my-2 sticky-bottom"  >
           <div className="row py-2">
             <div className="col fw-bolder fs-4">
-              <button className='btn btn-light text-dark'>
-                <Link className='shopNow' to='/shop'>Continue Shopping</Link>
-              </button>
+              <Link className='shopNow' to='/shop'>
+                <button className='btn btn-light text-dark'>
+                  Continue Shopping
+                </button>
+              </Link>
             </div>
             <div className="col fw-bolder fs-4">Grand Total</div>
-            <div className="col fw-bolder fs-4">₹{grandTotal}</div>
+            <div className="col fw-bolder fs-4">₹{props.grandTotal}</div>
             <div className="col fw-bolder fs-4">
               <button className="btn btn-light text-dark" disabled={props.cartArray.length === 0} >Proceed To Checkout</button>
             </div>
